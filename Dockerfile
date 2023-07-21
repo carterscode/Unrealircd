@@ -3,7 +3,9 @@ FROM ubuntu:latest
 
 # Set environment variables
 ENV UNREAL_VERSION=5.2.4
-ENV UNREAL_URL=https://www.unrealircd.org/downloads/unrealircd-${UNREAL_VERSION}.tar.gz
+ENV UNREAL_URL=https://www.unrealircd.org/downloads/unrealircd-latest.tar.gz
+
+sudo apt-get install build-essential pkg-config gdb libssl-dev libpcre2-dev libargon2-dev libsodium-dev libc-ares-dev libcurl4-openssl-dev
 
 # Update package manager and install necessary dependencies
 RUN apt-get update && apt-get install -y \
