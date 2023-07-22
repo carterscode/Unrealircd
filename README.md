@@ -23,7 +23,7 @@ docker run -d --name hopm \
 
 or via docker-compose:
 
-[Official Example](https://github.com/adamus1red/docker-unrealircd/blob/main/docker-compose.yml)
+[Official Example](https://raw.githubusercontent.com/carterscode/Unrealircd/main/docker-compose.yml)
 
 # Multi-Arch builds
 
