@@ -1,41 +1,29 @@
-# Use a Linux base image
-FROM ubuntu:latest
+ARG PKG="wget gcc make binutils libc6-compat g++ openssl-dev openssl curl curl-dev"
+ARG VER="6.1.1.1"
+ARG UID=10000
 
-# Set environment variables
-ENV UNREAL_VERSION=5.2.4
-ENV UNREAL_URL=https://www.unrealircd.org/downloads/unrealircd-latest.tar.gz
+FROM alpine
+ARG PKG
+ARG VER
+ARG UID
 
-sudo apt-get install build-essential pkg-config gdb libssl-dev libpcre2-dev libargon2-dev libsodium-dev libc-ares-dev libcurl4-openssl-dev
+COPY ./config.settings /tmp/config.settings
 
-# Update package manager and install necessary dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    wget \
-    libssl-dev \
-    tcl
+WORKDIR /usr/src/ircd
+RUN set -x \
+    && apk add --no-cache --virtual build ${PKG} && apk add --no-cache libcurl \
+    && wget -O /tmp/unrealircd https://www.unrealircd.org/downloads/unrealircd-${VER}.tar.gz \
+    && tar xvfz /tmp/unrealircd \
+    && cd ./unrealircd-${VER}/ \
+    && cp /tmp/config.settings /usr/src/ircd/unrealircd-${VER}/config.settings \
+    && ./Config -quick \
+    && make -j$(nproc) && make install \
+    && rm -rf /usr/src/ircd \
+    && apk del build \
+    && addgroup -S unreal && adduser -u ${UID} -S unreal -G unreal
 
-# Download and extract UnrealIRCd source code
-RUN wget -O unrealircd.tar.gz $UNREAL_URL && \
-    tar xvzf unrealircd.tar.gz && \
-    rm unrealircd.tar.gz
-
-# Set working directory to UnrealIRCd source directory
-WORKDIR /unrealircd-${UNREAL_VERSION}
-
-# Configure and compile UnrealIRCd
-RUN ./Config && \
-    make && \
-    make install
-
-# Expose the IRC ports
-EXPOSE 6667
-EXPOSE 6697
-
-# Copy the default configuration file to the container
-COPY unrealircd.conf.default /home/user/unrealircd/conf/unrealircd.conf
-
-# Set the user as 'ircd'
-USER ircd
-
-# Start UnrealIRCd
-CMD ["/home/user/unrealircd/UnrealIRCd", "foreground"]
+WORKDIR /ircd
+RUN set -x \
+    && chown -R unreal:unreal /ircd /app
+USER unreal
+CMD ["/bin/sh" ]
