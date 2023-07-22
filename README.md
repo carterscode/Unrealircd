@@ -1,5 +1,5 @@
 # UnrealIRCD Docker
-[![Docker Pulls](https://img.shields.io/docker/pulls/ircd/unrealircd?style=for-the-badge)](https://hub.docker.com/r/carterfields/unrealircd)
+[![Docker Pulls](https://img.shields.io/docker/pulls/carterfields/unrealircd?style=for-the-badge)](https://hub.docker.com/r/carterfields/unrealircd)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/ircd/unrealircd/latest?style=for-the-badge)](https://hub.docker.com/r/carterfields/unrealircd/tags)
 [![GitHub](https://img.shields.io/github/license/adamus1red/docker-unrealircd?style=for-the-badge)](https://github.com/carterscode/docker-unrealircd)
 
