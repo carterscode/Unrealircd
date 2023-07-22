@@ -16,9 +16,9 @@ The UnnrealIRCd refference config can be found [offical UnrealIRCd reference con
 HOPM is deployed via docker image like so:
 
 ```
-docker run -d --name hopm \
+docker run -d --name unrealircd \
   -v /path/to/file/hopm.conf:/ircd/unrealircd.conf \
-  ircd/unrealircd:latest
+  carterfields/unrealircd:nightly
 ```
 
 or via docker-compose:
