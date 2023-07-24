@@ -2,7 +2,8 @@ ARG PKG="build-essential pkg-config gdb libssl-dev libpcre2-dev libargon2-0-dev 
 ARG VER="6.1.1.1"
 ARG UID=10000
 
-FROM debian:bookworm-slim
+#FROM debian:bookworm-slim
+FROM alpine
 ARG PKG
 ARG VER
 ARG UID
