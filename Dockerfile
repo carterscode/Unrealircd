@@ -1,8 +1,8 @@
-ARG PKG="wget gcc make binutils libc6-compat g++ openssl-dev openssl curl curl-dev"
+ARG PKG="build-essential pkg-config gdb libssl-dev libpcre2-dev libargon2-0-dev libsodium-dev libc-ares-dev libcurl4-openssl-dev wget gcc make binutils libc6-compat g++ openssl-dev openssl curl curl-dev"
 ARG VER="6.1.1.1"
 ARG UID=10000
 
-FROM alpine
+FROM debian:bookworm-slim
 ARG PKG
 ARG VER
 ARG UID
